@@ -1,0 +1,553 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Экраны */
+.screen {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+    .screen.active {
+        display: block;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Лобби */
+.lobby-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+    .lobby-container h1 {
+        color: #1a1a2e;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+.subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1.1em;
+}
+
+.game-modes {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-card {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 30px;
+    min-width: 280px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .mode-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+.mode-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.mode-card h2 {
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.mode-card input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+    .mode-card input:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+.board-size-selector {
+    margin: 15px 0;
+    text-align: left;
+}
+
+    .board-size-selector label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .board-size-selector select {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 14px;
+        cursor: pointer;
+        background: white;
+    }
+
+        .board-size-selector select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+/* Кнопки */
+.btn-primary, .btn-success, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+.btn-success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+}
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+    }
+
+.btn-secondary {
+    background: linear-gradient(135deg, #718096, #4a5568);
+    color: white;
+}
+
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+    }
+
+/* Экран ожидания */
+.waiting-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.waiting-header h1 {
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+
+.room-code-display {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+    .room-code-display .label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+
+    .room-code-display .code {
+        font-size: 32px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 5px;
+    }
+
+.board-size-info {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.players-list {
+    margin: 20px 0;
+}
+
+    .players-list h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .players-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .players-list li {
+        padding: 12px;
+        margin: 8px 0;
+        background: #f0f0f0;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+.info-text {
+    margin-top: 20px;
+    color: #718096;
+    font-size: 14px;
+}
+
+    .info-text.ready {
+        color: #48bb78;
+        font-weight: bold;
+    }
+
+/* Игровой экран */
+.game-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.room-info {
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.turn-indicator {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background: #edf2f7;
+    transition: all 0.3s;
+}
+
+    .turn-indicator.your-turn {
+        background: linear-gradient(135deg, #48bb78, #38a169);
+        color: white;
+        animation: pulse 1s infinite;
+    }
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.players-panel {
+    margin-bottom: 30px;
+}
+
+#playersScores {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.player-score-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 140px;
+    transition: all 0.3s;
+}
+
+    .player-score-card.current-turn {
+        background: linear-gradient(135deg, #48bb78, #38a169);
+        box-shadow: 0 5px 20px rgba(72, 187, 120, 0.4);
+        transform: scale(1.05);
+    }
+
+    .player-score-card h4 {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .player-score-card .score {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+/* Игровое поле - динамическая сетка */
+.game-board {
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+    .game-board[data-size="4"] {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 600px;
+    }
+
+    .game-board[data-size="6"] {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 800px;
+        gap: 12px;
+    }
+
+    .game-board[data-size="8"] {
+        grid-template-columns: repeat(8, 1fr);
+        max-width: 1000px;
+        gap: 10px;
+    }
+
+/* Карточки */
+.card {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #667eea, #764ba2);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    .card:hover:not(.matched) {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card.flipped {
+        background: white;
+        transform: rotateY(180deg);
+    }
+
+        .card.flipped img {
+            display: block;
+        }
+
+    .card.matched {
+        background: linear-gradient(135deg, #48bb78, #38a169);
+        cursor: default;
+        opacity: 0.8;
+    }
+
+        .card.matched::after {
+            content: "✓";
+            font-size: 2em;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+    .card img {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+        display: none;
+    }
+
+    .card.flipped img {
+        display: block;
+    }
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+    .modal.active {
+        display: flex;
+    }
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+    max-width: 400px;
+}
+
+.modal-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.modal-content h2 {
+    color: #1a1a2e;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-controls {
+    text-align: center;
+}
+
+    .game-controls button {
+        width: auto;
+        min-width: 200px;
+    }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .lobby-container {
+        padding: 30px 20px;
+    }
+
+    .game-modes {
+        gap: 20px;
+    }
+
+    .mode-card {
+        min-width: 250px;
+        padding: 20px;
+    }
+
+    .game-board {
+        gap: 8px;
+    }
+
+        .game-board[data-size="6"] {
+            gap: 8px;
+        }
+
+        .game-board[data-size="8"] {
+            gap: 6px;
+        }
+
+    .player-score-card {
+        min-width: 100px;
+        padding: 10px 15px;
+    }
+
+        .player-score-card .score {
+            font-size: 20px;
+        }
+
+    .modal-content {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-board[data-size="6"],
+    .game-board[data-size="8"] {
+        gap: 5px;
+    }
+
+    .card {
+        border-radius: 8px;
+    }
+
+    .room-code-display .code {
+        font-size: 24px;
+        letter-spacing: 3px;
+    }
+
+    .card.matched img {
+        display: block !important;
+    }
+}
+
+

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Memory Game - Найди пару";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Экран входа в игру (лобби) -->
+        <div id="lobbyScreen" class="screen active">
+            <div class="lobby-container">
+                <h1>🎮 Memory: Найди пару</h1>
+                <p class="subtitle">Сетевая игра на память</p>
+
+                <div class="game-modes">
+                    <!-- Создание комнаты -->
+                    <div class="mode-card">
+                        <div class="mode-icon">🎲</div>
+                        <h2>Создать комнату</h2>
+                        <input type="text" id="createPlayerName" placeholder="Ваше имя" maxlength="20" autocomplete="off">
+
+                        <div class="board-size-selector">
+                            <label>Размер поля:</label>
+                            <select id="boardSize">
+                                <option value="4">4×4 (8 пар, легко)</option>
+                                <option value="6">6×6 (18 пар, средне)</option>
+                                <option value="8">8×8 (32 пары, сложно)</option>
+                            </select>
+                        </div>
+
+                        <button id="createRoomBtn" class="btn-primary">➕ Создать игру</button>
+                    </div>
+
+                    <!-- Присоединение к комнате -->
+                    <div class="mode-card">
+                        <div class="mode-icon">🔗</div>
+                        <h2>Присоединиться</h2>
+                        <input type="text" id="joinPlayerName" placeholder="Ваше имя" maxlength="20" autocomplete="off">
+                        <input type="text" id="roomCode" placeholder="Код комнаты" maxlength="4" style="text-transform: uppercase" autocomplete="off">
+                        <button id="joinRoomBtn" class="btn-primary">🔗 Присоединиться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран комнаты ожидания -->
+        <div id="waitingScreen" class="screen">
+            <div class="waiting-container">
+                <div class="waiting-header">
+                    <h1>🕒 Ожидание игроков</h1>
+                    <div class="room-code-display">
+                        <span class="label">Код комнаты:</span>
+                        <span class="code" id="displayRoomCode">----</span>
+                    </div>
+                </div>
+
+                <div class="board-size-info">
+                    📐 Размер поля: <span id="waitingBoardSize">4</span>×<span id="waitingBoardSize2">4</span>
+                </div>
+
+                <div class="players-list">
+                    <h3>👥 Игроки в комнате:</h3>
+                    <ul id="waitingPlayersList"></ul>
+                </div>
+
+                <button id="startGameBtn" class="btn-success" style="display: none;">🚀 Начать игру</button>
+                <button id="leaveWaitingBtn" class="btn-secondary">🚪 Выйти из комнаты</button>
+
+                <p id="waitingInfoText" class="info-text">Ожидание подключения других игроков (нужно минимум 2)...</p>
+            </div>
+        </div>
+
+        <!-- Экран игры -->
+        <div id="gameScreen" class="screen">
+            <div class="game-container">
+                <div class="game-header">
+                    <div class="room-info">
+                        🏠 Комната: <span id="gameRoomCode">----</span>
+                    </div>
+                    <div class="turn-indicator" id="turnIndicator">
+                        <span id="turnText">Загрузка...</span>
+                    </div>
+                </div>
+
+                <div class="players-panel">
+                    <div id="playersScores"></div>
+                </div>
+
+                <div class="game-board" id="gameBoard">
+                    <!-- Игровое поле генерируется динамически -->
+                </div>
+
+                <div class="game-controls">
+                    <button id="leaveGameBtn" class="btn-secondary">🚪 Выйти из игры</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно окончания игры -->
+        <div id="gameOverModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-icon">🏆</div>
+                <h2>Игра окончена!</h2>
+                <p id="winnerMessage">Победитель: ...</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button id="playAgainBtn" class="btn-success">🔄 Сыграть еще раз</button>
+                    <button id="closeModalBtn" class="btn-primary">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/memory-client.js"></script>
+</body>
+</html>
